@@ -9,3 +9,5 @@ con las credenciales:
 Usuario: user0147
 
 Password: #3Q34Sh0NlDS
+
+# Tecnologia usada Nextjs React
