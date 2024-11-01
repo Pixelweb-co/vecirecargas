@@ -4,7 +4,14 @@
 import { useState, useEffect } from 'react'
 
 export default function TransactionTable() {
-  const [transactions, setTransactions] = useState([])
+  interface Transaction {
+    transactionalID: string
+    message: string
+    cellPhone: string
+    value: number
+  }
+
+  const [transactions, setTransactions] = useState<Transaction[]>([])
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -12,7 +19,7 @@ export default function TransactionTable() {
         const token = localStorage.getItem('token')
 
         const response = await fetch('http://18.224.110.162:8000/api/transactions', {
-          headers: { Authorization: token }
+          headers: token ? { Authorization: token } : undefined
         })
 
         if (!response.ok) throw new Error('Failed to fetch transactions')
@@ -40,14 +47,15 @@ export default function TransactionTable() {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction, index) => (
-            <tr key={index} className='border-b'>
-              <td className='px-4 py-2'>{transaction.transactionalID}</td>
-              <td className='px-4 py-2'>{transaction.message}</td>
-              <td className='px-4 py-2'>{transaction.cellPhone}</td>
-              <td className='px-4 py-2'>{transaction.value}</td>
-            </tr>
-          ))}
+          {transactions.length > 0 &&
+            transactions.map((transaction, index) => (
+              <tr key={index} className='border-b'>
+                <td className='px-4 py-2'>{transaction.transactionalID}</td>
+                <td className='px-4 py-2'>{transaction.message}</td>
+                <td className='px-4 py-2'>{transaction.cellPhone}</td>
+                <td className='px-4 py-2'>{transaction.value}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

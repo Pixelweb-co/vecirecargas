@@ -1,5 +1,6 @@
 'use client'
 
+import type { FC, FormEvent } from 'react'
 import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
@@ -11,46 +12,24 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import Divider from '@mui/material/Divider'
-
-import classnames from 'classnames'
 
 import CustomTextField from '@core/components/mui/TextField'
 import Link from '@components/Link'
 import Logo from '@components/layout/shared/Logo'
 
 // Styled Components
-const LoginIllustration = styled('img')(({ theme }) => ({
-  zIndex: 2,
-  blockSize: 'auto',
-  maxBlockSize: 680,
-  maxInlineSize: '100%',
-  margin: theme.spacing(12),
-  [theme.breakpoints.down(1536)]: {
-    maxBlockSize: 550
-  },
-  [theme.breakpoints.down('lg')]: {
-    maxBlockSize: 450
-  }
-}))
+interface LoginProps {
+  mode: string // or replace `string` with a more specific type if needed
+}
 
-const MaskImg = styled('img')({
-  blockSize: 'auto',
-  maxBlockSize: 355,
-  inlineSize: '100%',
-  position: 'absolute',
-  insetBlockEnd: 0,
-  zIndex: -1
-})
-
-const LoginV2 = () => {
+const LoginV2: FC<LoginProps> = ({ mode }) => {
   const router = useRouter()
-  const theme = useTheme()
+
   const [isPasswordShown, setIsPasswordShown] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = async e => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
 
     try {

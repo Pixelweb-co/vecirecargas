@@ -3,6 +3,7 @@
 // React Imports
 import { useState } from 'react'
 
+import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 
 // MUI Imports
@@ -16,19 +17,28 @@ import DialogContentText from '@mui/material/DialogContentText'
 // Component Imports
 import CustomTextField from '@core/components/mui/TextField'
 
-const ModalRecharge = ({ open, handleClose, supplierId }) => {
+interface ModalRechargeProps {
+  open: boolean
+  handleClose: () => void
+  supplierId: { id: string; name: string }
+}
+
+interface RechargeFormData {
+  cellPhone: string
+  value: number
+}
+
+const ModalRecharge = ({ open, handleClose, supplierId }: ModalRechargeProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm()
+  } = useForm<RechargeFormData>()
 
-  const [cellPhone, setCellPhone] = useState('')
-  const [value, setValue] = useState('')
   const [submited, setSubmited] = useState(false)
-  const [resultTransaction, setResultTransaction] = useState(null)
+  const [resultTransaction, setResultTransaction] = useState<any>(null)
 
-  const handleRecharge = async data => {
+  const handleRecharge: SubmitHandler<RechargeFormData> = async data => {
     try {
       const token = localStorage.getItem('token')
 
@@ -49,8 +59,6 @@ const ModalRecharge = ({ open, handleClose, supplierId }) => {
 
       console.log('Recarga exitosa:', result)
       setResultTransaction(result)
-
-      //handleClose()
       setSubmited(true)
     } catch (error) {
       console.error('Error en la recarga:', error)
@@ -82,7 +90,6 @@ const ModalRecharge = ({ open, handleClose, supplierId }) => {
                 })}
                 error={!!errors.cellPhone}
                 helperText={errors.cellPhone ? errors.cellPhone.message : ''}
-                onChange={e => setCellPhone(e.target.value)}
               />
 
               <CustomTextField
@@ -99,7 +106,6 @@ const ModalRecharge = ({ open, handleClose, supplierId }) => {
                 })}
                 error={!!errors.value}
                 helperText={errors.value ? errors.value.message : ''}
-                onChange={e => setValue(e.target.value)}
               />
 
               <DialogActions className='dialog-actions-dense'>
@@ -112,12 +118,11 @@ const ModalRecharge = ({ open, handleClose, supplierId }) => {
           </>
         )}
 
-        {submited && (
+        {submited && resultTransaction && (
           <div className='text-center'>
             <h2>Resultado de la transaccion</h2>
             <p>{resultTransaction.message}</p>
             <br />
-
             <p>
               <b>Id transacción:</b> {resultTransaction.transactionalID}
             </p>

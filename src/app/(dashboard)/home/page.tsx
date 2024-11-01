@@ -9,12 +9,17 @@ import { Button } from '@mui/material'
 import ModalRecharge from '@/components/ModalRecharge'
 
 export default function Page() {
-  const [suppliers, setSuppliers] = useState([])
-  const [modalOpen, setModalOpen] = useState(false)
-  const [supplierSelect, setSupplierSelect] = useState(null)
+  interface Supplier {
+    id: string
+    name: string
+  }
 
-  const handleOpenModal = item => {
-    setSupplierSelect(item)
+  const [suppliers, setSuppliers] = useState<Supplier[]>([])
+  const [modalOpen, setModalOpen] = useState(false)
+  const [supplierSelect, setSupplierSelect] = useState<Supplier | null>(null)
+
+  const handleOpenModal = (supplier: Supplier) => {
+    setSupplierSelect(supplier)
 
     setModalOpen(true)
   }
@@ -77,7 +82,7 @@ export default function Page() {
           suppliers.map((item, index) => (
             <div className='supplier py-2 border mx-2 text-center w-250' key={index}>
               <Image
-                src={getImage(item.name)} // Reemplaza 'your-image.png' con el nombre de tu imagen
+                src={getImage(item.name) || ''}
                 alt='Descripción de la imagen'
                 width={100}
                 height={100}
