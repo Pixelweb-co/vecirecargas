@@ -18,7 +18,7 @@ export default function TransactionTable() {
       try {
         const token = localStorage.getItem('token')
 
-        const response = await fetch('http://18.224.110.162:8000/api/transactions', {
+        const response = await fetch('http://89.117.147.134:8000/api/transactions', {
           headers: token ? { Authorization: token } : undefined
         })
 

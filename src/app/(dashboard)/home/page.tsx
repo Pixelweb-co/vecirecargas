@@ -34,7 +34,7 @@ export default function Page() {
 
         if (!token) throw new Error('No se encontró el token en el localStorage')
 
-        const response = await fetch('http://18.224.110.162:8000/api/recharge/suppliers', {
+        const response = await fetch('http://89.117.147.134:8000/api/recharge/suppliers', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
