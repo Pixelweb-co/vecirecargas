@@ -104,8 +104,8 @@ const ModalRecharge = ({ open, handleClose, supplierId }: ModalRechargeProps) =>
                     message: 'El valor debe ser mayor a 1000'
                   },
                   max: {
-                    value: 1000,
-                    message: 'El valor debe ser mmenor a 10000'
+                    value: 100000,
+                    message: 'El valor debe ser mmenor a 100000'
                   }
                 })}
                 error={!!errors.value}
