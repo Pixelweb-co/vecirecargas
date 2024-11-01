@@ -44,7 +44,7 @@ const ModalRecharge = ({ open, handleClose, supplierId }: ModalRechargeProps) =>
 
       if (!token) throw new Error('No se encontró el token en el localStorage')
 
-      const response = await fetch('http://javaapirecargas-production.up.railway.app/api/recharge/buy', {
+      const response = await fetch('http://18.224.110.162:8000/api/recharge/buy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

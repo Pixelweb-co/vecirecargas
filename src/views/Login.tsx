@@ -33,7 +33,7 @@ const LoginV2: FC<LoginProps> = ({ mode }) => {
     e.preventDefault()
 
     try {
-      const response = await fetch('http://javaapirecargas-production.up.railway.app/api/recharge/auth', {
+      const response = await fetch('http://18.224.110.162:8000/api/recharge/auth', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
