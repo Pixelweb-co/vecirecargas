@@ -60,6 +60,11 @@ const ModalRecharge = ({ open, handleClose, supplierId }: ModalRechargeProps) =>
       console.log('Recarga exitosa:', result)
       setResultTransaction(result)
       setSubmited(true)
+
+      setTimeout(() => {
+        handleClose()
+        setSubmited(false)
+      }, 4000)
     } catch (error) {
       console.error('Error en la recarga:', error)
     }
